@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Will You Be My Valentine? ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff6a88, #ff99ac);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .name {
+            font-size: 42px;
+            font-weight: bold;
+            color: white;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px white, 0 0 20px pink; }
+            to { text-shadow: 0 0 20px white, 0 0 40px red; }
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            margin: auto;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 18px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.8s ease; /* smooth animation */
+        }
+
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+            left: 180px;
+            top: 130px;
+        }
+
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+            left: 320px;
+            top: 130px;
+        }
+
+        #finalMessage {
+            margin-top: 30px;
+            font-size: 26px;
+            color: white;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Change Name Here -->
+    <div class="name">Somu ❤️</div>
+
+    <h2>Will you be my Valentine?</h2>
+
+    <div class="buttons" id="buttonArea">
+        <button id="yesBtn">YES ❤️</button>
+        <button id="noBtn">NO 😢</button>
+    </div>
+
+    <div id="finalMessage">
+        You just upgraded your life to Premium Boyfriend Version 1.0 😎 ❤️🥰
+    </div>
+
+</div>
+
+<script>
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const buttonArea = document.getElementById("buttonArea");
+    const finalMessage = document.getElementById("finalMessage");
+
+    let attempts = 0;
+    let collided = false;
+
+    noBtn.addEventListener("mouseover", () => {
+
+        if (collided) return;
+
+        attempts++;
+
+        const areaWidth = buttonArea.clientWidth - noBtn.offsetWidth;
+        const areaHeight = buttonArea.clientHeight - noBtn.offsetHeight;
+
+        if (attempts <= 5) {
+            // Bigger visible random movement
+            const randomX = Math.random() * areaWidth;
+            const randomY = Math.random() * areaHeight;
+
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        } 
+        else {
+            // Move towards YES button
+            const yesX = yesBtn.offsetLeft;
+            const yesY = yesBtn.offsetTop;
+
+            noBtn.style.left = yesX + "px";
+            noBtn.style.top = yesY + "px";
+
+            collided = true;
+
+            // After collision → fade out NO
+            setTimeout(() => {
+                noBtn.style.opacity = "0";
+            }, 800);
+
+            setTimeout(() => {
+                noBtn.style.display = "none";
+            }, 1600);
+        }
+    });
+
+    yesBtn.addEventListener("click", () => {
+        finalMessage.style.display = "block";
+    });
+
+</script>
+
+</body>
+</html>
